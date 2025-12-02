@@ -1,0 +1,24 @@
+<div class="login-container" style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #161616; color: white;">
+  <div style="width: 300px; padding: 2rem; background-color: #262626;">
+    <h2 style="margin-bottom: 2rem;">Login / Register</h2>
+    
+    <ibm-label>
+      Email
+      <input ibmText [(ngModel)]="email" placeholder="Email" type="email">
+    </ibm-label>
+
+    <br><br>
+
+    <ibm-label>
+      Password
+      <input ibmText [(ngModel)]="password" placeholder="Password" type="password">
+    </ibm-label>
+
+    <br><br>
+
+    <div style="display: flex; gap: 1rem;">
+      <button ibmButton="primary" (click)="login()">Login</button>
+      <button ibmButton="secondary" (click)="register()">Register</button>
+    </div>
+  </div>
+</div>

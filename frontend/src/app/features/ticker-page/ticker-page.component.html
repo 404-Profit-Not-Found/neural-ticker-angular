@@ -1,0 +1,33 @@
+<div class="ticker-container" style="padding: 2rem; background-color: #161616; min-height: 100vh; color: white;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h1>{{ symbol }}</h1>
+            <h2 *ngIf="currentPrice">
+                ${{ currentPrice | number:'1.2-2' }}
+                <span [style.color]="(changePercent || 0) >= 0 ? '#26a69a' : '#ef5350'">
+                    ({{ changePercent | number:'1.2-2' }}%)
+                </span>
+            </h2>
+        </div>
+
+        <div *ngIf="insight">
+            <ibm-tag [type]="insight.neural_rating > 50 ? 'green' : 'red'">
+                Neural Rating: {{ insight.neural_rating }}
+            </ibm-tag>
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem;">
+        <div #chartContainer style="width: 100%; height: 400px;"></div>
+
+        <div *ngIf="insight">
+            <ibm-tile>
+                <h3>AI Insight</h3>
+                <p>{{ insight.summary_text }}</p>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 1rem;">
+                    Generated: {{ insight.created_at | date:'short' }}
+                </p>
+            </ibm-tile>
+        </div>
+    </div>
+</div>
