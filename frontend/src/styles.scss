@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'carbon-components/css/carbon-components.min.css';
+// @import '@carbon/styles/css/styles.css'; // Try this if available, otherwise rely on carbon-components
+
+// Custom overrides if needed
+body {
+  background-color: #161616;
+  color: #f4f4f4;
+}
