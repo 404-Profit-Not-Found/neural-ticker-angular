@@ -1,4 +1,4 @@
-import { Injectable, signal, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -8,18 +8,19 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class AuthService {
+  private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
+
   private tokenKey = 'access_token';
   isAuthenticated = signal(false);
 
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  constructor() {
     if (isPlatformBrowser(this.platformId)) {
       this.isAuthenticated.set(!!localStorage.getItem(this.tokenKey));
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   login(credentials: any) {
     return this.http.post<{ accessToken: string }>(`${environment.apiBaseUrl}/auth/login`, credentials).pipe(
       tap(response => {
@@ -31,6 +32,7 @@ export class AuthService {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   register(credentials: any) {
     return this.http.post<{ accessToken: string }>(`${environment.apiBaseUrl}/auth/register`, credentials).pipe(
       tap(response => {

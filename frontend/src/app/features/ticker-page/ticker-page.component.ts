@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, inject, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MarketService } from '../../data-access/market-data/market.service';
-import { createChart, ColorType } from 'lightweight-charts';
 import { TilesModule } from 'carbon-components-angular';
 import { TagModule } from 'carbon-components-angular';
 
@@ -18,8 +17,10 @@ export class TickerPageComponent implements OnInit {
 
   route = inject(ActivatedRoute);
   marketService = inject(MarketService);
+  platformId = inject(PLATFORM_ID);
 
   symbol = '';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   insight: any = null;
   currentPrice: number | null = null;
   changePercent: number | null = null;
@@ -33,7 +34,9 @@ export class TickerPageComponent implements OnInit {
 
   loadData() {
     this.marketService.getCandles(this.symbol).subscribe(candles => {
-      this.initChart(candles);
+      if (isPlatformBrowser(this.platformId)) {
+        this.initChart(candles);
+      }
       if (candles.length > 0) {
         const last = candles[candles.length - 1];
         const prev = candles.length > 1 ? candles[candles.length - 2] : last;
@@ -47,8 +50,12 @@ export class TickerPageComponent implements OnInit {
     });
   }
 
-  initChart(data: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async initChart(data: any[]) {
     if (!this.chartContainer) return;
+
+    // Dynamic import to prevent SSR crash
+    const { createChart, ColorType } = await import('lightweight-charts');
 
     this.chartContainer.nativeElement.innerHTML = ''; // Clear previous chart
 
@@ -65,6 +72,7 @@ export class TickerPageComponent implements OnInit {
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const candlestickSeries = (chart as any).addCandlestickSeries({
       upColor: '#26a69a',
       downColor: '#ef5350',
