@@ -6,9 +6,11 @@ This document defines a **minimum viable product (MVP)** for Neural-Ticker that 
 - NestJS backend
 - **SQLite** database via TypeORM (no Docker required for v0)
 
-The goal is a **vertical slice**:
+The goal is a **vertical slice*
 
-> User logs in → opens `/ticker/NVDA` → sees candlestick chart + current price + a simple AI “Neural Rating” + one-paragraph AI summary.
+> User logs in → opens `/dashboard/` → and sees dashboard with a list of tickers.
+
+> User clicks on a ticker → opens `/ticker/NVDA` → sees candlestick chart + current price + a simple AI “Neural Rating” + one-paragraph AI summary.
 
 No BYOK, no multi-cloud, no StockTwits/Reddit, no Go microservices – just the core loop.
 

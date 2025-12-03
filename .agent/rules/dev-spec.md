@@ -76,7 +76,7 @@ neural-ticker/
 │   ├── src/
 │   └── package.json
 ├── mvp.md
-└── dev-spec-angular-nest-guru.md  # (this spec)
+└── dev-spec.md  # (this spec)
 ```
 
 ### 2.2 Tooling Requirements

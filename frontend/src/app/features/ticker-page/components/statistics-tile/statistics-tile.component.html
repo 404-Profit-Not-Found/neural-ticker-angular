@@ -1,0 +1,21 @@
+<ibm-tile>
+    <h3>Key Statistics</h3>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+        <div>
+            <p style="color: #888; font-size: 0.8rem;">Open</p>
+            <p style="font-size: 1.2rem;">{{ open | number:'1.2-2' }}</p>
+        </div>
+        <div>
+            <p style="color: #888; font-size: 0.8rem;">High</p>
+            <p style="font-size: 1.2rem;">{{ high | number:'1.2-2' }}</p>
+        </div>
+        <div>
+            <p style="color: #888; font-size: 0.8rem;">Low</p>
+            <p style="font-size: 1.2rem;">{{ low | number:'1.2-2' }}</p>
+        </div>
+        <div>
+            <p style="color: #888; font-size: 0.8rem;">Volume</p>
+            <p style="font-size: 1.2rem;">{{ volume }}</p>
+        </div>
+    </div>
+</ibm-tile>

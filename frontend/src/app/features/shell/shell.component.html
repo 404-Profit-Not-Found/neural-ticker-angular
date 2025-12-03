@@ -1,0 +1,40 @@
+<ibm-header name="Neural Ticker">
+    <ibm-header-navigation>
+        <ibm-header-item href="/ticker/NVDA">Markets</ibm-header-item>
+        <ibm-header-item href="#">Portfolio</ibm-header-item>
+        <ibm-header-item href="#">Insights</ibm-header-item>
+    </ibm-header-navigation>
+    <ibm-header-global>
+        <ibm-header-action title="Search">
+            <svg ibmIcon="search" size="20"></svg>
+        </ibm-header-action>
+        <ibm-header-action title="Notifications">
+            <svg ibmIcon="notification" size="20"></svg>
+        </ibm-header-action>
+        <ibm-header-action title="User">
+            <svg ibmIcon="user--avatar" size="20"></svg>
+        </ibm-header-action>
+    </ibm-header-global>
+</ibm-header>
+
+<ibm-sidenav [expanded]="true" style="margin-top: 3rem;">
+    <ibm-sidenav-item href="/ticker/NVDA" [active]="true">
+        NVIDIA (NVDA)
+    </ibm-sidenav-item>
+    <ibm-sidenav-item href="/ticker/AAPL">
+        Apple (AAPL)
+    </ibm-sidenav-item>
+    <ibm-sidenav-item href="/ticker/TSLA">
+        Tesla (TSLA)
+    </ibm-sidenav-item>
+    <ibm-sidenav-item href="/ticker/MSFT">
+        Microsoft (MSFT)
+    </ibm-sidenav-item>
+    <ibm-sidenav-item href="/ticker/AMZN">
+        Amazon (AMZN)
+    </ibm-sidenav-item>
+</ibm-sidenav>
+
+<div class="bx--content">
+    <router-outlet></router-outlet>
+</div>

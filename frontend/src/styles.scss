@@ -1,9 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
-@import 'carbon-components/css/carbon-components.min.css';
-// @import '@carbon/styles/css/styles.css'; // Try this if available, otherwise rely on carbon-components
+// 1. Set Feature Flags
+$css--font-face: true;
+$css--helpers: true;
+$css--body: true;
+$css--use-layer: true;
 
-// Custom overrides if needed
+// 2. Import Carbon Theme Variables
+@import 'carbon-components/scss/globals/scss/theme';
+
+// 3. Set Theme to g100 (Dark)
+// 1. Set Feature Flags
+$css--font-face: true;
+$css--helpers: true;
+$css--body: true;
+$css--use-layer: true;
+
+// 2. Import Carbon Theme Variables
+@import 'carbon-components/scss/globals/scss/theme';
+
+// 3. Set Theme to g100 (Dark)
+$carbon--theme: $carbon--theme--g100;
+
+// 4. Import Carbon Styles
+@import 'carbon-components/scss/globals/scss/styles';
+
+// 5. Global Overrides
 body {
-  background-color: #161616;
-  color: #f4f4f4;
+  background-color: $ui-01;
+  color: $text-01;
+  margin: 0;
+  font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
 }

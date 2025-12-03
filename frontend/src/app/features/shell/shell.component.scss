@@ -1,0 +1,11 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.bx--content {
+    margin-left: 16rem; // Width of expanded sidenav
+    padding-top: 3rem; // Height of header
+    min-height: 100vh;
+    background-color: #161616;
+}

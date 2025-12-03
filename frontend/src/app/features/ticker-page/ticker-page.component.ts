@@ -1,15 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild, inject, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild, inject, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MarketService } from '../../data-access/market-data/market.service';
 import { createChart, ColorType } from 'lightweight-charts';
-import { TilesModule } from 'carbon-components-angular';
-import { TagModule } from 'carbon-components-angular';
+import { TilesModule, GridModule, TagModule } from 'carbon-components-angular';
+import { StatisticsTileComponent } from './components/statistics-tile/statistics-tile.component';
 
 @Component({
   selector: 'app-ticker-page',
   standalone: true,
-  imports: [CommonModule, TilesModule, TagModule],
+  imports: [CommonModule, TilesModule, TagModule, GridModule, StatisticsTileComponent],
   templateUrl: './ticker-page.component.html',
   styleUrls: ['./ticker-page.component.scss']
 })
@@ -18,16 +18,25 @@ export class TickerPageComponent implements OnInit {
 
   route = inject(ActivatedRoute);
   marketService = inject(MarketService);
+  private platformId = inject(PLATFORM_ID);
 
   symbol = '';
   insight: any = null;
   currentPrice: number | null = null;
   changePercent: number | null = null;
 
+  // Stats
+  open = 0;
+  high = 0;
+  low = 0;
+  volume = '0';
+
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.symbol = params.get('symbol') || 'NVDA';
-      this.loadData();
+      if (isPlatformBrowser(this.platformId)) {
+        this.loadData();
+      }
     });
   }
 
@@ -39,6 +48,12 @@ export class TickerPageComponent implements OnInit {
         const prev = candles.length > 1 ? candles[candles.length - 2] : last;
         this.currentPrice = parseFloat(last.close);
         this.changePercent = ((this.currentPrice - parseFloat(prev.close)) / parseFloat(prev.close)) * 100;
+
+        // Set stats
+        this.open = parseFloat(last.open);
+        this.high = parseFloat(last.high);
+        this.low = parseFloat(last.low);
+        this.volume = last.volume;
       }
     });
 
@@ -48,6 +63,7 @@ export class TickerPageComponent implements OnInit {
   }
 
   initChart(data: any[]) {
+    if (!isPlatformBrowser(this.platformId)) return;
     if (!this.chartContainer) return;
 
     this.chartContainer.nativeElement.innerHTML = ''; // Clear previous chart
